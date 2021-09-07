@@ -25,7 +25,7 @@ iverilog_link       ="https://github.com/steveicarus/iverilog.git"
 openems_link        ="https://github.com/thliebig/openEMS-Project.git"
 
 
-all: all_analog all_digital 
+all: install_libraries all_analog all_digital 
 
 all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic build_netgen build_xcircuit build_xschem build_xyce
 
@@ -33,7 +33,21 @@ all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
 
 .ONESHELL
 install_libraries:
-	@
+	@apt update -y
+	@apt upgrade -y
+	@apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev m4 \
+	tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libx11-dev libcairo2-dev libncurses-dev \
+	python3 python3-pip libgsl-dev libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config python3 libboost-system-dev \
+	libboost-python-dev libboost-filesystem-dev zlib1g-dev gengetopt help2man groff pod2pdf libtool octave liboctave-dev epstool transfig paraview \
+	libhdf5-dev libvtk7-dev libboost-all-dev libcgal-dev libtinyxml-dev qtbase5-dev libvtk7-qt-dev libopenmpi-dev \
+	xterm graphicsmagick ghostscript libtinyxml-dev libhdf5-serial-dev libcgal-dev vtk7 \
+	cython3 build-essential cython3 python3-numpy python3-matplotlib python3-scipy python3-h5py meld \
+        python3-pip ffmpeg gcc g++ gfortran make cmake bison flex libfl-dev libfftw3-dev libsuitesparse-dev \
+        libblas-dev liblapack-dev libtool autoconf automake git \
+        uidmap apt-transport-https     ca-certificates     curl     gnupg
+	@apt autoremove
+	@apt clean
+  
 
 temp:
 	@mkdir temp
