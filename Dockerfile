@@ -16,4 +16,5 @@
 FROM ubuntu:20.04 as build
 
 COPY ./Makefile /Makefile
+COPY ./cmake_init.sh ./Makefile
 RUN cd / && make all
