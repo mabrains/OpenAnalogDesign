@@ -16,5 +16,6 @@
 FROM ubuntu:20.04 as build
 
 COPY ./Makefile /Makefile
-COPY ./cmake_init.sh ./Makefile
-RUN cd / && make all
+COPY ./cmake_init.sh /cmake_init.sh
+RUN cd / && apt-get update && DEBIAN_FRONTEND="noninteractive" TZ="Africa/Cairo" apt-get install -y tzdata
+RUN apt-get install make 
