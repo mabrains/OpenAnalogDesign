@@ -31,7 +31,7 @@ all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic bui
 
 all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
 
-.ONESHELL
+.ONESHELL:
 install_libraries:
 	@apt update -y
 	@apt upgrade -y
@@ -170,7 +170,7 @@ download_trilinos: temp
 	@wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz
 	@tar zxvf trilinos-release-12-12-1.tar.gz
 
-.ONESHELL
+.ONESHELL:
 build_trilinos: temp download_trilinos
 	@mkdir -p temp/Trilinos-trilinos-release-12-12-1/parallel_build
 	@cp cmake_init.sh temp/Trilinos-trilinos-release-12-12-1/parallel_build
@@ -180,7 +180,7 @@ build_trilinos: temp download_trilinos
 	@make install
 	
 
-.ONESHELL
+.ONESHELL:
 build_xyce: build_trilinos
 	@cd temp
 	@git clone $(xyce_link)
