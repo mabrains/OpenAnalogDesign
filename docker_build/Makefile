@@ -6,19 +6,19 @@
 ngspcie_version     = 35
 ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspcie_version)/ngspice-$(ngspcie_version).tar.gz"
 klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_0.27.3-1_amd64.deb"
-magic_link	    ="https://github.com/RTimothyEdwards/magic.git"
-xcircuit_link	    ="https://github.com/RTimothyEdwards/XCircuit.git"
+magic_link          ="https://github.com/RTimothyEdwards/magic.git"
+xcircuit_link       ="https://github.com/RTimothyEdwards/XCircuit.git"
 netgen_link         ="https://github.com/RTimothyEdwards/netgen.git"
 xschem-gaw_link     ="https://github.com/StefanSchippers/xschem-gaw.git"
 xschem_link         ="https://github.com/StefanSchippers/xschem.git"
-trilinos_link	    ="https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz"
+trilinos_link       ="https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz"
 xyce_link           ="https://github.com/Xyce/Xyce.git"
 
 # Digital tools links
 yosys_link          ="https://github.com/YosysHQ/yosys.git"
 graywolf_link       ="https://github.com/rubund/graywolf.git"
 qrouter_link        ="https://github.com/RTimothyEdwards/qrouter"
-qflow_link    	    ="https://github.com/RTimothyEdwards/qflow"
+qflow_link          ="https://github.com/RTimothyEdwards/qflow"
 iverilog_link       ="https://github.com/steveicarus/iverilog.git"
 
 # RF tools links
@@ -31,23 +31,21 @@ all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic bui
 
 all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
 
-.ONESHELL
+.ONESHELL:
 install_libraries:
 	@apt update -y
 	@apt upgrade -y
-	@apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev m4 \
-	tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libx11-dev libcairo2-dev libncurses-dev \
-	python3 python3-pip libgsl-dev libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config python3 libboost-system-dev \
-	libboost-python-dev libboost-filesystem-dev zlib1g-dev gengetopt help2man groff pod2pdf libtool octave liboctave-dev epstool transfig paraview \
-	libhdf5-dev libvtk7-dev libboost-all-dev libcgal-dev libtinyxml-dev qtbase5-dev libvtk7-qt-dev libopenmpi-dev \
-	xterm graphicsmagick ghostscript libtinyxml-dev libhdf5-serial-dev libcgal-dev vtk7 \
-	cython3 build-essential cython3 python3-numpy python3-matplotlib python3-scipy python3-h5py meld \
-        python3-pip ffmpeg gcc g++ gfortran make cmake bison flex libfl-dev libfftw3-dev libsuitesparse-dev \
-        libblas-dev liblapack-dev libtool autoconf automake git \
-        uidmap apt-transport-https     ca-certificates     curl     gnupg
+	@apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev m4
+	@apt install -y tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libx11-dev libcairo2-dev libncurses-dev
+	@apt install -y python3 python3-pip libgsl-dev libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config python3 libboost-system-dev
+	@apt install -y libboost-python-dev libboost-filesystem-dev zlib1g-dev gengetopt help2man groff pod2pdf libtool octave liboctave-dev 
+	@apt install -y epstool transfig paraview libhdf5-dev libvtk7-dev libboost-all-dev libcgal-dev libtinyxml-dev qtbase5-dev 
+	@apt install -y libvtk7-qt-dev libopenmpi-dev xterm graphicsmagick ghostscript libtinyxml-dev libhdf5-serial-dev libcgal-dev vtk7
+	@apt install -y cython3 build-essential cython3 python3-numpy python3-matplotlib python3-scipy python3-h5py meld
+	@apt install -y python3-pip ffmpeg gcc g++ gfortran make cmake bison flex libfl-dev libfftw3-dev libsuitesparse-dev
+	@apt install -y libblas-dev liblapack-dev libtool autoconf automake git uidmap apt-transport-https ca-certificates curl gnupg
 	@apt autoremove
 	@apt clean
-  
 
 temp:
 	@mkdir temp
@@ -170,7 +168,7 @@ download_trilinos: temp
 	@wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz
 	@tar zxvf trilinos-release-12-12-1.tar.gz
 
-.ONESHELL
+.ONESHELL:
 build_trilinos: temp download_trilinos
 	@mkdir -p temp/Trilinos-trilinos-release-12-12-1/parallel_build
 	@cp cmake_init.sh temp/Trilinos-trilinos-release-12-12-1/parallel_build
@@ -180,7 +178,7 @@ build_trilinos: temp download_trilinos
 	@make install
 	
 
-.ONESHELL
+.ONESHELL:
 build_xyce: build_trilinos
 	@cd temp
 	@git clone $(xyce_link)
