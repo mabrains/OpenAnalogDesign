@@ -1,5 +1,7 @@
 # OpenAnalogDesign
 
+[<img src="https://raw.githubusercontent.com/mabrains/sky130_ubuntu_setup/main/logo.svg">](http://mabrains.com/)
+
 Open Analog Design Environment that would encapsulate the following tools for Analog Design:
 
 1. Xschem
