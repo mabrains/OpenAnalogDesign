@@ -35,6 +35,7 @@ all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
 install_libraries:
 	@apt update -y
 	@apt upgrade -y
+	@apt install wget
 	@apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev m4
 	@apt install -y tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libx11-dev libcairo2-dev libncurses-dev
 	@apt install -y python3 python3-pip libgsl-dev libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config python3 libboost-system-dev
