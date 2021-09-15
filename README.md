@@ -9,6 +9,7 @@ Open Analog Design Environment that would encapsulate the following tools for An
 5. netgen
 6. Xyce
 7. ngspice
+8. Skywater 130nm Open_PDK installation only for Analog Design.
 
 Do you want to package more, please send us a suggestions?
 
