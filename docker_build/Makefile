@@ -3,8 +3,8 @@
 ##############################################################################################
 
 # Analog tools links
-ngspcie_version     = 35
-ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspcie_version)/ngspice-$(ngspcie_version).tar.gz"
+ngspice_version     = 35
+ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspice_version)/ngspice-$(ngspice_version).tar.gz"
 klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_0.27.3-1_amd64.deb"
 magic_link          ="https://github.com/RTimothyEdwards/magic.git"
 xcircuit_link       ="https://github.com/RTimothyEdwards/XCircuit.git"
@@ -53,11 +53,11 @@ temp:
 .ONESHELL:
 download_ngspice: temp
 	@cd temp
-	@wget -O ngspice-$(ngspcie_version).tar.gz $(ngspice_link)
-	@tar zxvf ngspice-$(ngspcie_version).tar.gz
+	@wget -O ngspice-$(ngspice_version).tar.gz $(ngspice_link)
+	@tar zxvf ngspice-$(ngspice_version).tar.gz
 
 .ONESHELL:
-build_ngspice_lib: download_ngspice temp/ngspice-$(ngspice_version)
+build_ngspice_lib: download_ngspice 
 	@mkdir -p temp/ngspice-$(ngspice_version)/build-lib
 	@cd temp/ngspice-$(ngspice_version)/build-lib
 	@../configure --with-x --enable-xspice --enable-cider --enable-openmp --disable-debug --with-ngshared
@@ -65,7 +65,7 @@ build_ngspice_lib: download_ngspice temp/ngspice-$(ngspice_version)
 	@make install
 
 .ONESHELL:
-build_ngspice: download_ngspice temp/ngspice-$(ngspice_version)
+build_ngspice: download_ngspice 
 	@mkdir -p temp/ngspice-$(ngspice_version)/release
 	@cd  temp/ngspice-$(ngspice_version)/release
 	@../configure --with-x --enable-xspice --enable-cider --enable-openmp --with-readlines=yes --disable-debug
