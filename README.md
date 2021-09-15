@@ -11,8 +11,20 @@ Open Analog Design Environment that would encapsulate the following tools for An
 7. ngspice
 8. Skywater 130nm Open_PDK installation only for Analog Design.
 
-Do you want to package more, please send us a suggestions?
+This Analog Design enviroment will support Skywater 130nm PDK similar to OpenLane.
 
-This Analog Design enviroment will support Skywater 130nm PDK similar to [OpenLane project](https://github.com/The-OpenROAD-Project/OpenLane).
+# Suggesstions
+
+Do you want to package more, please create an issue here on this repo.
+
+# External Links
+* [OpenLane project](https://github.com/The-OpenROAD-Project/OpenLane).
+* [Open_Pdks](https://github.com/RTimothyEdwards/open_pdks)
+* [Magic](https://github.com/RTimothyEdwards/magic)
+* [XCircuit](https://github.com/RTimothyEdwards/XCircuit)
+* [Netgen](https://github.com/RTimothyEdwards/netgen)
+* [Skywaters 130nm PDK](https://github.com/google/skywater-pdk)
+* [Xyce](https://xyce.sandia.gov/)
+* [Ng-spice](http://ngspice.sourceforge.net/)
 
 
