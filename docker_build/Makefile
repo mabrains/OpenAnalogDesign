@@ -161,7 +161,7 @@ build_xschem: temp build_gaw3
 	@cd xschem
 	@./configure
 	@make -j$$(nproc)
-	@make install:
+	@make install
 	
 .ONESHELL:
 download_trilinos: temp
