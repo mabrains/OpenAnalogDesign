@@ -10,7 +10,7 @@ DOCKER_OPTIONS = "--env=DISPLAY --volume=/tmp/.X11-unix:/tmp/.X11-unix --net=hos
 ### OPEN_ANALOG_DESIN
 
 .PHONY: all
-all: openlane
+all: open_Analog
 
 .PHONY: open_Analog
 open_Analog:
