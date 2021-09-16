@@ -5,7 +5,8 @@
 # Analog tools links
 ngspice_version     = 35
 ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspice_version)/ngspice-$(ngspice_version).tar.gz"
-klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_0.27.3-1_amd64.deb"
+klayout_version	    = "0.27.3-1"
+klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_$(klayout_version)_amd64.deb"
 magic_link          ="https://github.com/RTimothyEdwards/magic.git"
 xcircuit_link       ="https://github.com/RTimothyEdwards/XCircuit.git"
 netgen_link         ="https://github.com/RTimothyEdwards/netgen.git"
@@ -76,7 +77,7 @@ build_ngspice: download_ngspice
 install_klayout: temp
 	@cd temp
 	@wget $(klayout_link)
-	@dpkg -i ./klayout_0.27.3-1_amd64.deb
+	@dpkg -i ./klayout_$(klayout_version)_amd64.deb
 	@apt-get install -f -y
 
 .ONESHELL:
