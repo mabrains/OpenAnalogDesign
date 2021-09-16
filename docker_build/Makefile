@@ -36,7 +36,6 @@ all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
 install_libraries:
 	@apt update -y
 	@apt upgrade -y
-	@apt install wget
 	@apt install -y vim htop build-essential git cmake autoconf automake flex bison texinfo libx11-dev libxaw7-dev libreadline-dev 
 	@apt install -y tcl-dev tk-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev tcsh csh libcairo2-dev libncurses-dev libgsl-dev
 	@apt install -y libgtk-3-dev clang gawk libffi-dev graphviz xdot pkg-config libboost-system-dev libboost-python-dev zlib1g-dev
@@ -44,7 +43,7 @@ install_libraries:
 	@apt install -y libhdf5-dev libvtk7-dev libboost-all-dev libcgal-dev libtinyxml-dev qtbase5-dev libvtk7-qt-dev libopenmpi-dev
 	@apt install -y xterm graphicsmagick ghostscript libhdf5-serial-dev vtk7 cython3 python3 python3-pip python3-numpy gcc g++ 
 	@apt install -y gfortran python3-matplotlib python3-scipy python3-h5py meld ffmpeg  make libfl-dev libfftw3-dev libsuitesparse-dev
-	@apt install -y libblas-dev liblapack-dev uidmap apt-transport-https ca-certificates curl gnupg m4
+	@apt install -y libblas-dev liblapack-dev uidmap apt-transport-https ca-certificates curl gnupg m4 wget autopoint
 	@apt autoremove
 	@apt clean
 
@@ -103,6 +102,7 @@ build_xcircuit: temp
 	@cd temp
 	@git clone $(xcircuit_link)
 	@cd XCircuit
+	@autoreconf -fi
 	@./configure
 	@make -j$$(nproc)
 	@make install
@@ -159,6 +159,7 @@ build_xschem: temp build_gaw3
 	@cd temp
 	@git clone $(xschem_link)
 	@cd xschem
+	@autoreconf -i
 	@./configure
 	@make -j$$(nproc)
 	@make install
@@ -175,6 +176,7 @@ build_trilinos: temp download_trilinos
 	@cp cmake_init.sh temp/Trilinos-trilinos-release-12-12-1/parallel_build
 	@cd temp/Trilinos-trilinos-release-12-12-1/parallel_build
 	@chmod +x cmake_init.sh
+	@./cmake_init.sh
 	@make -j$$(nproc)
 	@make install
 	
@@ -203,11 +205,11 @@ build_openems: temp
 	@./update_openEMS.sh $OPENEMS
 	@cd CSXCAD/python
 	@python3 setup.py build_ext -I$OPENEMS/include -L$OPENEMS/lib -R$OPENEMS/lib
-	@sudo python3 setup.py install
+	@python3 setup.py install
 	@cd ../..
 	@cd openEMS/python
 	@python3 setup.py build_ext -I$OPENEMS/include -L$OPENEMS/lib -R$OPENEMS/lib
-	@sudo python3 setup.py install
+	@python3 setup.py install
 	@cd ../..
 
 clean:
