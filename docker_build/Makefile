@@ -150,6 +150,7 @@ build_gaw3: temp
 	@cd temp
 	@git clone $(xschem-gaw_link)
 	@cd xschem-gaw
+	@autoreconf -i
 	@./configure
 	@make -j$$(nproc)
 	@make install
@@ -159,7 +160,6 @@ build_xschem: temp build_gaw3
 	@cd temp
 	@git clone $(xschem_link)
 	@cd xschem
-	@autoreconf -i
 	@./configure
 	@make -j$$(nproc)
 	@make install
@@ -167,7 +167,7 @@ build_xschem: temp build_gaw3
 .ONESHELL:
 download_trilinos: temp
 	@cd temp
-	@wget https://github.com/trilinos/Trilinos/archive/refs/tags/trilinos-release-12-12-1.tar.gz
+	@wget $(trilinos_link)
 	@tar zxvf trilinos-release-12-12-1.tar.gz
 
 .ONESHELL:
