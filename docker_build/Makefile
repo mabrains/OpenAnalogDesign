@@ -26,7 +26,7 @@ iverilog_link       ="https://github.com/steveicarus/iverilog.git"
 openems_link        ="https://github.com/thliebig/openEMS-Project.git"
 
 
-all: install_libraries all_analog all_digital 
+all: install_libraries all_analog
 
 all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic build_netgen build_xcircuit build_xschem build_xyce
 
