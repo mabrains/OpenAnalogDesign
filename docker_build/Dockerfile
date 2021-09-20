@@ -20,3 +20,5 @@ COPY ./cmake_init.sh /cmake_init.sh
 RUN cd / && DEBIAN_FRONTEND="noninteractive" apt-get update
 RUN apt-get install make
 RUN cd / && DEBIAN_FRONTEND="noninteractive" make all
+RUN cd / && DEBIAN_FRONTEND="noninteractive" make clean_builds
+
