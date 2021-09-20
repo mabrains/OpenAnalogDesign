@@ -205,13 +205,13 @@ build_openems: temp
 	@git submodule init
 	@git submodule update
 	@export OPENEMS=/opt/openems
-	@./update_openEMS.sh $OPENEMS
+	@./update_openEMS.sh $$OPENEMS
 	@cd CSXCAD/python
-	@python3 setup.py build_ext -I$OPENEMS/include -L$OPENEMS/lib -R$OPENEMS/lib
+	@python3 setup.py build_ext -I$$OPENEMS/include -L$$OPENEMS/lib -R$$OPENEMS/lib
 	@python3 setup.py install
 	@cd ../..
 	@cd openEMS/python
-	@python3 setup.py build_ext -I$OPENEMS/include -L$OPENEMS/lib -R$OPENEMS/lib
+	@python3 setup.py build_ext -I$$OPENEMS/include -L$$OPENEMS/lib -R$$OPENEMS/lib
 	@python3 setup.py install
 	@cd ../..
 
