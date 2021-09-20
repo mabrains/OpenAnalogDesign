@@ -21,16 +21,17 @@ graywolf_link       ="https://github.com/rubund/graywolf.git"
 qrouter_link        ="https://github.com/RTimothyEdwards/qrouter"
 qflow_link          ="https://github.com/RTimothyEdwards/qflow"
 iverilog_link       ="https://github.com/steveicarus/iverilog.git"
+verilator_link      ="https://github.com/verilator/verilator.git"
 
 # RF tools links
 openems_link        ="https://github.com/thliebig/openEMS-Project.git"
 
 
-all: install_libraries all_analog
+all: install_libraries all_analog all_digital clean_builds
 
 all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic build_netgen build_xcircuit build_xschem build_xyce
 
-all_digital: temp build_yosys build_graywolf build_qrouter build_qflow
+all_digital: temp build_yosys build_graywolf build_qrouter build_qflow build_iverilog build_verilator
 
 .ONESHELL:
 install_libraries:
@@ -44,6 +45,8 @@ install_libraries:
 	@apt install -y xterm graphicsmagick ghostscript libhdf5-serial-dev vtk7 cython3 python3 python3-pip python3-numpy gcc g++ 
 	@apt install -y gfortran python3-matplotlib python3-scipy python3-h5py meld ffmpeg  make libfl-dev libfftw3-dev libsuitesparse-dev
 	@apt install -y libblas-dev liblapack-dev uidmap apt-transport-https ca-certificates curl gnupg m4 wget autopoint
+	@apt install -y wget perl python3 make g++ libgz libfl2 libfl-dev zlibc zlib1g zlib1g-dev ccache libgoogle-perftools-dev numactl perl-doc 
+	@apt install -y git autoconf flex bison graphviz cmake clang clang-format-11 gprof gtkwave
 	@apt autoremove
 	@apt clean
 
@@ -212,6 +215,27 @@ build_openems: temp
 	@python3 setup.py install
 	@cd ../..
 
-clean:
+.ONESHELL:
+build_iverilog: temp
+	@cd temp
+	@git clone $(iverilog_link)
+	@cd iverilog
+	@sh autoconf.sh
+	@./configure
+	@make -j$$(nproc)
+	@make install
+
+.ONESHELL:
+build_verilator: temp
+	@cd temp
+	@git clone $(verilator_link)
+	@cd verilator
+	@autoconf
+	@./configure
+	@make -j$$(nproc)
+	@make install
+
+
+clean_builds:
 	rm -rf temp
 
