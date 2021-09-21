@@ -43,4 +43,4 @@ open_Analog:
 .PHONY: mount
 mount:
 	cd $(OPENAnalog_DIR) && \
-	docker run -it --rm --name OpenAnlaog_container -v $(PDK_ROOT):/foundry $(DOCKER_OPTIONS) $(IMAGE_NAME)
+	docker run -it --rm --name OpenAnlaog_container -v $(OPENAnalog_DIR):/foundry -v $(PDK_ROOT):$(PDK_ROOT) -e PDK_ROOT=$(PDK_ROOT) $(DOCKER_OPTIONS) $(IMAGE_NAME)
