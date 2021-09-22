@@ -58,7 +58,7 @@ pdk_install: $(PDK_ROOT)/ open_pdks
 .PHONY: pdk
 pdk: pdk_install clean_open_pdks
 
-#####################################################################33### OPEN_ANALOG_DESIN ######################################################################
+########################################################################## OPEN_ANALOG_DESIN ######################################################################
 
 .PHONY: open_Analog
 open_Analog:
@@ -68,3 +68,17 @@ open_Analog:
 mount:
 	cd $(OPENAnalog_DIR) && \
 	docker run -it --rm --name OpenAnlaog_container $(DOCKER_MAPPING) $(DOCKER_OPTIONS) $(IMAGE_NAME) 
+
+########################################################### Building the folder structure folder of the desgin #####################################################
+
+%-cell: 
+	@cd $(DESIGNS_ROOT)
+	@if [ -d "$*" ]; then \
+	  echo "$* is already exists";\
+	else \
+		mkdir  $*		;\
+		mkdir -p $*/schematic	;\
+		mkdir -p $*/symbol	;\
+		mkdir -p $*/layout	;\
+		mkdir -p $*/netlist	;\
+		mkdir -p $*/simulations; fi 
