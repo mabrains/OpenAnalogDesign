@@ -72,13 +72,13 @@ mount:
 ########################################################### Building the folder structure folder of the desgin #####################################################
 
 %-cell: 
-	@cd $(DESIGNS_ROOT)
-	@if [ -d "$*" ]; then \
-	  echo "$* is already exists";\
-	else \
-		mkdir  $*		;\
-		mkdir -p $*/schematic	;\
-		mkdir -p $*/symbol	;\
-		mkdir -p $*/layout	;\
-		mkdir -p $*/netlist	;\
-		mkdir -p $*/simulations; fi 
+	@$(ENV_COMMAND) sh -c "cd /designs && \
+							if [ -d $* ]; then 
+								echo '$* is already exists';\
+							else \
+								mkdir  $*		;\
+								mkdir -p $*/schematic	;\
+								mkdir -p $*/symbol	;\
+								mkdir -p $*/layout	;\
+								mkdir -p $*/netlist	;\
+								mkdir -p $*/simulations; fi" 
