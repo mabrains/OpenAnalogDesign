@@ -73,7 +73,7 @@ mount:
 
 %-cell: 
 	@$(ENV_COMMAND) sh -c "cd /designs && \
-							if [ -d $* ]; then 
+							if [ -d $* ]; then \
 								echo '$* is already exists';\
 							else \
 								mkdir  $*		;\
