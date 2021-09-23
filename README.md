@@ -6,17 +6,17 @@ Open Analog Design Environment that would encapsulate a range of Open Source des
 
 * For Analog Design:
 
-1. `Xschem` - A schematic editor for VLSI/Asic/Analog custom designs
-2. `Xcircuit` - Drawing program [especially for circuit schematics]
-3. `klayout` - Streams out the final layout file
-4. `magic` - Streams out the final layout file
-5. `netgen` Performs LVS Checks
-6. `Xyce` - Analog circuit simulator
-7. `ngspice` - Spice simulator for electric and electronic circuits.
+  1. `Xschem` - A schematic editor for VLSI/Asic/Analog custom designs
+  2. `Xcircuit` - Drawing program [especially for circuit schematics]
+  3. `klayout` - Streams out the final layout file
+  4. `magic` - Streams out the final layout file
+  5. `netgen` Performs LVS Checks
+  6. `Xyce` - Analog circuit simulator
+  7. `ngspice` - Spice simulator for electric and electronic circuits.
 
 
 * PDKs Supported:
-1. `Skywater 130nm` using open_pdk installation.
+  1. `Skywater 130nm` using open_pdk installation.
 
 This Analog Design enviroment will support Skywater 130nm PDK similar to OpenLane.
 
