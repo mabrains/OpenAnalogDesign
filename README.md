@@ -2,7 +2,9 @@
 
 [<img src="https://raw.githubusercontent.com/mabrains/sky130_ubuntu_setup/main/logo.svg" width="150">](http://mabrains.com/)
 
-Open Analog Design Environment that would encapsulate the following tools for Analog Design:
+Open Analog Design Environment that would encapsulate a range of Open Source design tools.
+
+* For Analog Design:
 
 1. `Xschem` - A schematic editor for VLSI/Asic/Analog custom designs
 2. `Xcircuit` - Drawing program [especially for circuit schematics]
@@ -13,7 +15,7 @@ Open Analog Design Environment that would encapsulate the following tools for An
 7. `ngspice` - Spice simulator for electric and electronic circuits.
 
 
-PDKs Supported:
+* PDKs Supported:
 1. `Skywater 130nm` using open_pdk installation.
 
 This Analog Design enviroment will support Skywater 130nm PDK similar to OpenLane.
