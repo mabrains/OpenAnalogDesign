@@ -11,13 +11,27 @@ Open Analog Design Environment that would encapsulate the following tools for An
 5. `netgen` Performs LVS Checks
 6. `Xyce` - Analog circuit simulator
 7. `ngspice` - Spice simulator for electric and electronic circuits.
-8. `Skywater 130nm` Open_PDK installation only for Analog Design.
+
+
+PDKs Supported:
+1. `Skywater 130nm` Open_PDK installation only for Analog Design.
 
 This Analog Design enviroment will support Skywater 130nm PDK similar to OpenLane.
 
 # Installation
+To be able to use OpenAnalogDesign environment, you will need to do the following:
+```
+make open_analog
+make pdk
+```
+
+Note: OpenAnalogDesign docker image is about 9GB.
 
 # Usage
+To be able to use OpenAnalogDesign environment, currently, we only support mounting:
+```
+make mount
+```
 
 # Suggestions
 
