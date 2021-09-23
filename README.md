@@ -14,7 +14,7 @@ Open Analog Design Environment that would encapsulate the following tools for An
 
 
 PDKs Supported:
-1. `Skywater 130nm` Open_PDK installation only for Analog Design.
+1. `Skywater 130nm` using open_pdk installation.
 
 This Analog Design enviroment will support Skywater 130nm PDK similar to OpenLane.
 
