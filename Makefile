@@ -60,8 +60,8 @@ pdk: pdk_install clean_open_pdks
 
 ########################################################################## OPEN_ANALOG_DESIN ######################################################################
 
-.PHONY: open_Analog
-open_Analog:
+.PHONY: open_analog
+open_analog:
 	docker pull $(IMAGE_NAME)
 
 .PHONY: mount
