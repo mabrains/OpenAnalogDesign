@@ -28,6 +28,14 @@ make pdk
 Note: OpenAnalogDesign docker image is about 9GB.
 
 # Usage
+
+The main intension behind creating this docker image is the following:
+1. To allow the usage of the tools across different platforms. 
+2. Standardize the process of design and make it easy to have uniqified framework for people and enabling them to productive.
+
+We currently only support Linux. We have tested it on:
+* Ubuntu 20.04
+
 To be able to use OpenAnalogDesign environment, currently, we only support mounting:
 ```
 make mount
