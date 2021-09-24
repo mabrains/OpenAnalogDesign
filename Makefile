@@ -47,6 +47,18 @@ open_pdks:
 clean_open_pdks:
 	@cd $(OPENAnalog_DIR)
 	@rm -rf open_pdks
+
+.ONESHELL:
+.PHONY: skywater_pdk_klayout
+skywater_pdk_klayout:
+	$(ENV_COMMAND) sh -c "cd /root && klayout -e && \
+							  mv ~/.klayout ~/.klayout_old && \
+							  klayout -e && \
+							  cd  ~/.klayout && \
+							  mkdir tech && cd tech && \
+							  git clone $(sky130_klayout_pdk) sky130 && \
+							  pip install pandas"  
+	$(ENV_COMMAND) klayout -e 
 	
 .PHONY: pdk_install
 pdk_install: $(PDK_ROOT)/ open_pdks
