@@ -82,3 +82,45 @@ mount:
 								mkdir -p $*/layout	;\
 								mkdir -p $*/netlist	;\
 								mkdir -p $*/simulations; fi" 
+								
+############################################################################ Using Tools  ##########################################################################
+
+%-schematic: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/schematic && \
+							if [ -f '$*.sch' ]; then \
+								xschem $*.sch;\
+							else \
+								touch $*.sch ;\
+								xschem $*.sch; fi"
+
+%-xcircuit: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/schematic && \
+							if [ -f '$*.ps' ]; then \
+								xcircuit $*.ps;\
+							else \
+								touch $*.ps ;\
+								xcircuit $*.ps; fi"	
+
+%-symbol: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/symbol && \
+							if [ -f $*.sym ]; then \
+								xschem $*.sym;\
+							else \
+								touch $*.sym ;\
+								xschem $*.sym; fi"
+
+%-klayout: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/layout && \
+							if [ -f $*.gds ]; then \
+								klayout -e $*.gds;\
+							else \
+								touch $*.gds ;\
+								klayout -e $*.gds; fi"
+%-magic: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/layout && \
+							if [ -f $*.gds ]; then \
+								magic $*.gds;\
+							else \
+								touch $*.gds ;\
+								magic $*.gds; fi"
+							
