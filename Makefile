@@ -2,6 +2,7 @@
 # Makefile to control the Analog Design Environment
 ###########################################################################################
 pdk_link = https://github.com/mabrains/open_pdks.git
+sky130_klayout_pdk = https://github.com/mabrains/sky130_klayout_pdk.git
 
 OPENAnalog_DIR ?= $(shell pwd)
 PDK_ROOT       ?= $(shell pwd)/pdks
