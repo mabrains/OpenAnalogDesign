@@ -127,7 +127,7 @@ mount:
 							if [ -f $*.gds ]; then \
 								klayout -e $*.gds;\
 							else \
-								touch $*.gds ;\
+								klayout -b  -rd design_name='$*.gds' -r '/open_analog_design/scripts/create_gds.rb' ;\
 								klayout -e $*.gds; fi"
 %-magic: %-cell
 	@$(ENV_COMMAND) sh -c "cd /designs/$*/layout && \
