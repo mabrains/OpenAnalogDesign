@@ -2,6 +2,7 @@
 # Makefile to control the Analog Design Environment
 ###########################################################################################
 pdk_link = https://github.com/mabrains/open_pdks.git
+sky130_klayout_pdk = https://github.com/mabrains/sky130_klayout_pdk.git
 
 OPENAnalog_DIR ?= $(shell pwd)
 PDK_ROOT       ?= $(shell pwd)/pdks
@@ -47,6 +48,18 @@ open_pdks:
 clean_open_pdks:
 	@cd $(OPENAnalog_DIR)
 	@rm -rf open_pdks
+
+.ONESHELL:
+.PHONY: skywater_pdk_klayout
+skywater_pdk_klayout:
+	$(ENV_COMMAND) sh -c "cd /root && klayout -e && \
+			  mv ~/.klayout ~/.klayout_old && \
+			  klayout -e && \
+			  cd  ~/.klayout && \
+			 mkdir tech && cd tech && \
+			  git clone $(sky130_klayout_pdk) sky130 && \
+			  pip install pandas"  
+	$(ENV_COMMAND) klayout -e 
 	
 .PHONY: pdk_install
 pdk_install: $(PDK_ROOT)/ open_pdks
@@ -67,18 +80,60 @@ open_analog:
 .PHONY: mount
 mount:
 	cd $(OPENAnalog_DIR) && \
-	docker run -it --rm --name OpenAnlaog_container $(DOCKER_MAPPING) $(DOCKER_OPTIONS) $(IMAGE_NAME) 
+	docker run -it --rm --name OpenAnlaog_container $(DOCKER_MAPPING) $(DOCKER_OPTIONS) $(IMAGE_NAME)
 
 ########################################################### Building the folder structure folder of the desgin #####################################################
 
-%-cell: 
+%-cell:
 	@$(ENV_COMMAND) sh -c "cd /designs && \
-							if [ -d $* ]; then \
-								echo '$* is already exists';\
-							else \
-								mkdir  $*		;\
-								mkdir -p $*/schematic	;\
-								mkdir -p $*/symbol	;\
-								mkdir -p $*/layout	;\
-								mkdir -p $*/netlist	;\
-								mkdir -p $*/simulations; fi" 
+				if [ -d $* ]; then \
+					echo '$* is already exists';\
+				else \
+					mkdir  $*		;\
+					mkdir -p $*/schematic	;\
+					mkdir -p $*/symbol	;\
+					mkdir -p $*/layout	;\
+					mkdir -p $*/netlist	;\
+					mkdir -p $*/simulations; fi"
+
+############################################################################ Using Tools  ##########################################################################
+
+%-schematic: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/schematic && \
+				if [ -f '$*.sch' ]; then \
+					xschem $*.sch;\
+				else \
+					touch $*.sch ;\
+					xschem $*.sch; fi"
+
+%-xcircuit: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/schematic && \
+				if [ -f '$*.ps' ]; then \
+					xcircuit $*.ps;\
+					else \
+					touch $*.ps ;\
+					xcircuit $*.ps; fi"
+
+%-symbol: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/symbol && \
+				if [ -f $*.sym ]; then \
+					xschem $*.sym;\
+				else \
+					touch $*.sym ;\
+					xschem $*.sym; fi"
+
+%-klayout: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/layout && \
+				if [ -f $*.gds ]; then \
+					klayout -e $*.gds;\
+				else \
+					klayout -b  -rd design_name='$*.gds' -r '/open_analog_design/scripts/create_gds.rb' ;\
+					klayout -e $*.gds; fi"
+%-magic: %-cell
+	@$(ENV_COMMAND) sh -c "cd /designs/$*/layout && \
+				if [ -f $*.gds ]; then \
+					magic $*.gds;\
+				else \
+					touch $*.gds ;\
+					magic $*.gds; fi"
+
