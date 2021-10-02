@@ -5,7 +5,7 @@
 # Analog tools links
 ngspice_version     = 35
 ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspice_version)/ngspice-$(ngspice_version).tar.gz"
-klayout_version	    = "0.27.3-1"
+klayout_version	    = "0.27.4-1"
 klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_$(klayout_version)_amd64.deb"
 magic_link          ="https://github.com/RTimothyEdwards/magic.git"
 xcircuit_link       ="https://github.com/RTimothyEdwards/XCircuit.git"
@@ -23,15 +23,28 @@ qflow_link          ="https://github.com/RTimothyEdwards/qflow"
 iverilog_link       ="https://github.com/steveicarus/iverilog.git"
 verilator_link      ="https://github.com/verilator/verilator.git"
 
+# RISC-V tools
+riscv-tools_link    ="https://github.com/chipsalliance/rocket-tools.git"
+riscv-install-path  =/opt/riscv-toolchain
+firrtl_link         ="https://github.com/chipsalliance/firrtl.git"
+treadle_link        ="https://github.com/chipsalliance/treadle.git"
+chisel_link         ="https://github.com/chipsalliance/chisel3.git"
+
+
+# Server tools
+libvnc              ="https://github.com/LibVNC/libvncserver.git"
+
 # RF tools links
 openems_link        ="https://github.com/thliebig/openEMS-Project.git"
 
 
-all: install_libraries all_analog all_digital
+all: install_libraries all_analog all_digital all_soc install_vnc_server clean_builds
 
 all_analog: temp build_ngspice_lib build_ngspice install_klayout build_magic build_netgen build_xcircuit build_xschem build_xyce
 
 all_digital: temp build_yosys build_graywolf build_qrouter build_qflow build_verilator
+
+all_soc: build_riscv_tools install_chisel
 
 .ONESHELL:
 install_libraries:
@@ -47,11 +60,47 @@ install_libraries:
 	@apt install -y libblas-dev liblapack-dev uidmap apt-transport-https ca-certificates curl gnupg m4 wget autopoint
 	@apt install -y wget perl python3 make g++ libgz libfl2 libfl-dev zlibc zlib1g zlib1g-dev ccache libgoogle-perftools-dev numactl perl-doc 
 	@apt install -y git autoconf flex bison graphviz cmake clang clang-format-11 gprof gtkwave iverilog
+	@apt install -y autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev libusb-1.0-0-dev gawk build-essential bison flex 
+	@apt install -y texinfo gperf libtool patchutils bc zlib1g-dev device-tree-compiler pkg-config libexpat-dev libfl-dev
 	@apt autoremove
 	@apt clean
 
+install_vnc_server: build_libvnc install_novnc
+
 temp:
 	@mkdir temp
+
+.ONESHELL:
+build_riscv_tools: temp
+	@cd temp
+	@git clone $(riscv-tools_link)
+	@cd rocket-tools
+	@git submodule update --init --recursive
+	@mkdir -p $(riscv-install-path)
+	@export RISCV=$(riscv-install-path)
+	@export MAKEFLAGS="$$MAKEFLAGS -j$$(nproc)"
+	@./build.sh
+	@./build-rv32ima.sh
+
+.ONESHELL:
+install_sbt:
+	@echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
+	@echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
+	@curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
+	@sudo apt-get update
+	@sudo apt-get install sbt
+
+.ONESHELL:
+install_chisel: temp install_sbt
+	@cd temp
+	@git clone $(firrtl_link)
+	@git clone $(treadle_link)
+	@pushd firrtl; sbt publishLocal; popd
+	@pushd treadle; sbt publishLocal; popd
+	@git clone $(chisel_link)
+	@cd chisel3
+	@sbt compile
+
 	
 .ONESHELL:
 download_ngspice: temp
@@ -238,4 +287,18 @@ build_verilator: temp
 
 clean_builds:
 	rm -rf temp
+
+.ONESHELL:
+build_libvnc: temp
+	@cd temp
+	@git clone $(libvnc)
+	@cd libvncserver
+	@mkdir build
+	@cd build
+	@cmake ..
+	@cmake --build .
+
+.ONESHELL:
+install_novnc:
+	@snap install novnc
 
