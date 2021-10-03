@@ -1,7 +1,7 @@
 #!/bin/bash -f
 
 sudo apt-get update
-sudo apt-get install git
+sudo apt-get install -y git build-essential
 git clone https://github.com/mabrains/OpenAnalogDesign.git
 cd OpenAnalogDesign/docker_build/
 make all
