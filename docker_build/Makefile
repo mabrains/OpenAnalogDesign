@@ -3,10 +3,10 @@
 ##############################################################################################
 
 # Analog tools links
-ngspice_version     = 35
+ngspice_version     = 37
 ngspice_link        ="https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/$(ngspice_version)/ngspice-$(ngspice_version).tar.gz"
-klayout_version	    = "0.27.4-1"
-klayout_link        ="https://www.klayout.org/downloads/Ubuntu-20/klayout_$(klayout_version)_amd64.deb"
+klayout_version	    = "0.27.10-1"
+klayout_link        ="https://www.klayout.org/downloads/Ubuntu-22/klayout_$(klayout_version)_amd64.deb"
 magic_link          ="https://github.com/RTimothyEdwards/magic.git"
 xcircuit_link       ="https://github.com/RTimothyEdwards/XCircuit.git"
 netgen_link         ="https://github.com/RTimothyEdwards/netgen.git"
