@@ -1,4 +1,4 @@
-# OpenAnalogDesign
+# OpenAnalogDesign (This project will be deprecated)
 
 [<img src="https://raw.githubusercontent.com/mabrains/sky130_ubuntu_setup/main/logo.svg" width="150">](http://mabrains.com/)
 
